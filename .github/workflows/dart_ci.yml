@@ -50,4 +50,4 @@ jobs:
         run: dart pub get
       - name: Run VM tests
         run: dart test --platform vm
-        if: always() $$ steps.install.outcome == 'success'
+        if: always() && steps.install.outcome == 'success'
