@@ -1,39 +1,81 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+Word Collection Utils
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages). 
+[![Dart CI](https://github.com/thecasualdev17/word_collection_utils/actions/workflows/dart_ci.yml/badge.svg)](https://github.com/thecasualdev17/word_collection_utils/actions/workflows/dart_ci.#
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A Dart package to process JSON or CSV assets, extract their contents, and save them to a database.
+This package is designed to simplify asset processing and database management for your Flutter or
+Dart projects.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Load and parse JSON assets.
+- Load and parse CSV assets.
+- Easy-to-use utility functions for asset processing.
 
-## Getting started
+## Getting Started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+### Prerequisites
+
+- Dart SDK installed.
+- Flutter installed (if using this package in a Flutter project).
+
+Add the following dependencies to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+```
+
+Run `flutter pub get` or `dart pub get` to install the dependencies.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+### Import the Package
 
 ```dart
-const like = 'sample';
+import 'package:word_collection_utils/word_collection_utils.dart';
 ```
 
-## Additional information
+### Process a JSON Asset
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+```dart
+
+final assetProcessor = AssetProcessor();
+await
+assetProcessor.processJson
+('assets/sample.json
+'
+);
+```
+
+### Process a CSV Asset
+
+```dart
+
+final assetProcessor = AssetProcessor();
+await
+assetProcessor.processCsv
+('assets/sample.csv
+'
+);
+```
+
+### Database Operations
+
+The package automatically saves the parsed data to a SQLite database. You can customize the database
+operations by modifying the `DBHelper` class.
+
+## Example
+
+For a complete example, check the `/example` folder in the package.
+
+## Additional Information
+
+- For more details on creating Dart packages, visit
+  the [Dart guide](https://dart.dev/guides/libraries/create-packages).
+- To contribute to this package, file issues, or request features, visit the [GitHub repository](#).
+
+## License
+
+This package is licensed under the MIT License. See the `LICENSE` file for more details.
+
+```yml)
