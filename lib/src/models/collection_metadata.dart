@@ -1,4 +1,4 @@
-import 'package:word_collection_utils/src/classes/character_metadata.dart';
+import './character_metadata.dart';
 
 class CollectionMetadata {
   final int totalWordCount;

@@ -1,7 +1,7 @@
 include: package:lints/recommended.yaml
 linter:
   rules:
-#     - camel_case_types
+    - sort_pub_dependencies
 
 analyzer:
   exclude:
