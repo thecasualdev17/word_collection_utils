@@ -1,9 +1,10 @@
-import 'dart:convert';
-import 'dart:io';
-
+import 'package:word_collection_utils/src/file_loader/file_loader.dart';
 import 'package:word_collection_utils/src/models/file_contents.dart';
 
+/// Provides utilities for reading and managing word collections and optional metadata
+/// from files, with support for in-memory caching and header handling.
 class WordCollectionIo {
+  /// Creates a new [WordCollectionIo] instance.
   WordCollectionIo();
 
   String? _collectionPath = '';
@@ -16,22 +17,37 @@ class WordCollectionIo {
   FileContents? _collection;
   FileContents? _metadata;
 
-  /// Accessors
-
+  /// Indicates whether the IO utility has been initialized with file paths.
   bool get isInitialized => _isInitialized;
 
+  /// Returns whether file contents should be cached in memory after reading.
   bool get saveToMemory => _saveToMemory;
 
+  /// Returns whether the files are expected to have header rows.
   bool get hasHeaders => _hasHeaders;
 
+  /// Returns the word collection loaded in memory, if available.
   FileContents? get getCollectionFromMemory => _collection;
 
+  /// Returns the metadata loaded in memory, if available.
   FileContents? get getMetadataFromMemory => _metadata;
 
+  /// Returns the file path to the word collection.
   String? get collectionPath => _collectionPath;
 
+  /// Returns the file path to the metadata collection.
   String? get metadataPath => _metadataPath;
 
+  final FileLoader _fileLoader = FileLoader();
+
+  /// Initializes the IO utility with the given file paths and options.
+  ///
+  /// [collectionPath] is required and specifies the path to the word collection file.
+  /// [metadataPath] is optional and specifies the path to the metadata file.
+  /// [saveToMemory] determines if file contents should be cached in memory.
+  /// [hasHeaders] specifies if the files have header rows.
+  ///
+  /// Returns `true` if initialization is successful.
   bool init({
     required String collectionPath,
     String? metadataPath,
@@ -52,12 +68,13 @@ class WordCollectionIo {
     return isInitialized;
   }
 
+  /// Reads the file at [filePath] and returns its contents as a [FileContents] object.
+  ///
+  /// Throws an [Exception] if the utility is not initialized.
   Future<FileContents> readFile(String filePath) async {
     late FileContents fileContents;
     if (isInitialized) {
-      var stream = File(
-        filePath,
-      ).openRead().transform(utf8.decoder).transform(LineSplitter());
+      var stream = await _fileLoader.getFileStream(filePath);
       var list = await stream.toList();
       if (hasHeaders) {
         var headers = list[0];
@@ -72,6 +89,12 @@ class WordCollectionIo {
     throw Exception('Not Initialized');
   }
 
+  /// Returns the word collection as a [FileContents] object.
+  ///
+  /// If [saveToMemory] is enabled and the collection is already loaded,
+  /// returns the cached version. Otherwise, reads from the file.
+  ///
+  /// Throws an [Exception] if the utility is not initialized.
   Future<FileContents> getWordCollection() async {
     if (isInitialized) {
       FileContents? collectionFromMemory = getCollectionFromMemory;
@@ -89,6 +112,12 @@ class WordCollectionIo {
     }
   }
 
+  /// Returns the character metadata as a [FileContents] object.
+  ///
+  /// If [saveToMemory] is enabled and the metadata is already loaded,
+  /// returns the cached version. Otherwise, reads from the file.
+  ///
+  /// Throws an [Exception] if the utility is not initialized.
   Future<FileContents> getCharacterMetadata() async {
     if (isInitialized) {
       FileContents? metadataFromMemory = getMetadataFromMemory;

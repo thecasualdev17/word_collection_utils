@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Word Collection Utils Web Example</title>
+    <script>
+        window.fetchFileContent = async function(path) {
+          const response = await fetch(path);
+          if (!response.ok) throw new Error('Failed to fetch file: ' + path);
+          return await response.text();
+        };
+    </script>
+</head>
+<body>
+<h1>Word Collection Utils Web Example</h1>
+<div id="randomWord"></div>
+<div id="wordIndex"></div>
+<div id="wordRange"></div>
+<script defer src="main.dart.js"></script>
+</body>
+</html>
