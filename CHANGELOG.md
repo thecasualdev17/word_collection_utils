@@ -6,3 +6,7 @@
 
 - Added documentation for public members
 - Added wasm/web support
+
+## 0.1.2
+
+- Exported  Word and Option

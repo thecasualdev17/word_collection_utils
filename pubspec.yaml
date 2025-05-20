@@ -1,7 +1,7 @@
 name: word_collection_utils
 description: A Dart library designed to simplify the processing of CSV files and provide
   utility functions for word collection management.
-version: 0.1.1
+version: 0.1.2
 repository: https://github.com/thecasualdev17/word_collection_utils
 
 environment:
